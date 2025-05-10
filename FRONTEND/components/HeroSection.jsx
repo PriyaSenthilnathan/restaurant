@@ -17,7 +17,7 @@ function HeroSection() {
             <div className="textAndLogo">
               <div className="textWithSvg">
                 <h1 className="title">Food</h1>
-                <h1 className="dishes_title">Dishes</h1>
+                <h1 className="dishes_title">items</h1>
                 <img src="/threelines.svg" alt="three" />
               </div>
               <img src="/logo.svg" alt="logo" className="logo" />
