@@ -11,7 +11,7 @@ COPY FRONTEND/package.json FRONTEND/package-lock.json ./
 RUN npm install
 
 # Copy all frontend files into container
-COPY frontend .
+COPY FRONTEND .
 
 # Expose the port if needed (depends on your app)
 EXPOSE 3000
