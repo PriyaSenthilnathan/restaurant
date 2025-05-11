@@ -1,32 +1,20 @@
-# Build Stage
-FROM node:20 AS build
+# Use an image
+FROM node:18
 
+# Set working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json first
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
-# Show files before npm install to debug easily
+# Debugging
 RUN ls -al && cat package.json
 
-# Install dependencies with verbose output for detailed logs
-RUN npm install --verbose
+# Install dependencies
+RUN npm install
 
-# Copy the rest of the application code
+# Copy other app files
 COPY . .
 
-# Build the app
-RUN npm run build
-
-# Production Stage
-FROM nginx:stable-alpine
-
-# Copy built files to nginx html folder
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Optional: Copy nginx config if you have a custom one
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Command to run your app
+CMD ["npm", "start"]
