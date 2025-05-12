@@ -1,5 +1,5 @@
-# Use official Node.js image
-FROM node:18
+# Use a newer Node.js image (Node 20+) because your packages require it
+FROM node:20
 
 # Set working directory inside the container
 WORKDIR /app
@@ -7,13 +7,13 @@ WORKDIR /app
 # Copy package.json and package-lock.json from frontend folder
 COPY FRONTEND/package.json FRONTEND/package-lock.json ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies (with network retries to handle ECONNRESET errors)
+RUN npm install --network-timeout=100000
 
 # Copy all frontend files into container
 COPY FRONTEND .
 
-# Expose the port if needed (depends on your app)
+# Expose the port (assuming your frontend dev server runs on 3000)
 EXPOSE 3000
 
 # Start the application
